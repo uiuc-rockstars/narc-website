@@ -19,15 +19,11 @@ var report = mongoose.model('report', reportSchema);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res) {
-    res.render('index.ejs');
-});
-
 http.createServer(app).listen(PORT, function() {
     console.log("Server is listening on port 3000"); 
 });
 
-app.get('/viewall', function(req,res) {
+app.get('/', function(req,res) {
     report.find({}, function(err, reports) {
 	console.log("\nProducts !");
 	console.log(reports); 
@@ -36,7 +32,7 @@ app.get('/viewall', function(req,res) {
 });
 
 function renderResult(res, data, msg) {
-  res.render('display.ejs', {message:msg, reports:data},
+  res.render('index.ejs', {message:msg, reports:data},
     function(err, result) {
       if (!err) {res.end(result);}
       else {res.end('Oops ! An error occurred.');
